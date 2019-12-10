@@ -245,6 +245,55 @@ comcom:
 	CHECK_FS
 	mov	al,#0x4c	; display an 'L'
 	call	display
+	
+	; === Start of LG Control code ===
+	
+	; set bit 7 (DLAB)
+	mov dx, #0x3fb
+	mov al, #0x83
+	out dx, al
+
+	; low byte 9600
+	mov dx, #0x3f8
+	mov al, #0x0c
+	out dx, al
+
+	; low byte 9600
+	mov dx, #0x3f9
+	mov al, #0x00
+	out dx, al
+
+	; unset bit 7 (DLAB)
+	mov dx, #0x3fb
+	mov al, #0x03
+	out dx, al
+
+	; enable and clear fifos
+	mov dx, #0x3fa
+	mov al, #0x07
+	out dx, al
+
+	; The XXXs output to serial port
+	mov dx, #0x3f8
+	mov al, #107    ; 'k' - command 1
+	out dx, al
+	mov al, #97     ; 'a' - command 2
+	out dx, al
+	mov al, #32     ; SPACE
+	out dx, al
+	mov al, #48     ; '0' - All connected monitors.
+	out dx, al
+	mov al, #32     ; SPACE
+	out dx, al
+	mov al, #48     ; '0'
+	out dx, al
+	mov al, #49     ; '1' - power on command
+	out dx, al
+	mov al, #0x0d   ; NEWLINE
+	out dx, al
+
+	; === End of LG control code ===
+
 	push	#0		; get pointer to disk parameter table in DS:SI
 	pop	ds
 	lds	si,[0x78]	; 0x78 = 4*0x1E
