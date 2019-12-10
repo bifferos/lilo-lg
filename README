@@ -5,7 +5,7 @@ Version 24.3 (non-released hack) bifferos
 -----------------------------------------
 
 This version adds support for sending serial port control codes to a 
-connects LG TV.  The TV model tested is 32H2000
+connects LG TV.  The TV model tested is 32LH2000
 https://www.lg.com/uk/support/support-product/lg-32LH2000
 See the PDF manual for a complete breakdown of all control codes, 
 only the 'power-on' code is sent from LILO.
